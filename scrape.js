@@ -34,15 +34,12 @@ request('https://natureworksbest.com/naturopathy-works/food-cravings/', (error, 
                 const data = $('tr').eq(i).text()
                 // const cleandata = data.replace(/\n/g, "");
                 const splitdata = data.split('\n')
-                const dataremove = splitdata.filter(function (el){
-                    return el != null && el != '';
-                });
             
-                chart.push({dataremove})
+                chart.push({splitdata})
 
-                const cravingThis = chart[0];
-                const reason = chart[1];
-                const solution = chart[2];                
+                const cravingThis = splitdata[1];
+                const reason = splitdata[2];
+                const solution = splitdata[3];                
 
                small.push({
                     cravingThis: cravingThis,
@@ -50,7 +47,7 @@ request('https://natureworksbest.com/naturopathy-works/food-cravings/', (error, 
                     solution: solution,
 
                 })
-                console.log(splitdata)
+                console.log(small)
             };
             
         }
