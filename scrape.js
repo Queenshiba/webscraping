@@ -11,11 +11,6 @@ request('https://natureworksbest.com/naturopathy-works/food-cravings/', (error, 
         // console.log(table)
 
 
-
-        var data = $('tr').text()
-        var arr = []
-        var arrp = arr.push(data)
-
         // try to use for loop but does't work
 
         // for (let i = 0; i < 10; i++) {
@@ -26,29 +21,46 @@ request('https://natureworksbest.com/naturopathy-works/food-cravings/', (error, 
         //     // }
         //     arr.push(data[i])
 
-            // console.log(arrp)
+        // console.log(arrp)
         // }
 
-                // extract each target
-                $('tbody').each(function () {
-                    const cravingChart = [];
-                    const cravingThis = $('tr').children('td').first().text();
-                    const reason = $('tr').children('td').slice(1).eq(0).text();
-                    const solution = $('tr').children('td').last().text();
+        // extract each target
+        $('tr').each(function () {
+            // push the target to json form 
+            for (let i = 1; i < 35; i++) {
+                const chart = [];
+                const small = []
+                
+                const data = $('tr').eq(i).text()
+                // const cleandata = data.replace(/\n/g, "");
+                const splitdata = data.split('\n')
+                const dataremove = splitdata.filter(function (el){
+                    return el != null && el != '';
+                });
+            
+                chart.push({dataremove})
 
-                    // push the target to json form
-                    cravingChart.push({
-                        cravingThis: cravingThis,
-                        reason: reason,
-                        solution: solution,
-                    });
-            console.log(cravingChart)
+                const cravingThis = chart[0];
+                const reason = chart[1];
+                const solution = chart[2];                
+
+               small.push({
+                    cravingThis: cravingThis,
+                    reason: reason,
+                    solution: solution,
+
+                })
+                console.log(splitdata)
+            };
+            
+        }
+            
             // look like this
             // [ { cravingThis: 'Chocolate',
             // reason: 'Magnesium',
             // solution:
             //  'Vitamin C supplements or orange, green and red fruits and vegetables' } ]
-
-        })
+        
+        )
     }
 });
